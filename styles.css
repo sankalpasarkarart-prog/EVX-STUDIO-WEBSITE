@@ -1,0 +1,1915 @@
+/* ============================================================
+   EVX STUDIO — Premium Media Creation Agency
+   Apple Liquid Glass UI Aesthetic
+   ============================================================ */
+
+/* ── Fonts loaded via <link> in HTML for better performance ── */
+
+
+/* ============================================================
+   1. DESIGN TOKENS (Custom Properties)
+   ============================================================ */
+:root {
+  /* ─ Backgrounds ─ */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0d0d14;
+
+  /* ─ Accents ─ */
+  --accent: #5dffd2;
+  --accent-rgb: 93, 255, 210;
+  --secondary: #8b5cf6;
+  --secondary-rgb: 139, 92, 246;
+  --tertiary: #3b82f6;
+  --tertiary-rgb: 59, 130, 246;
+
+  /* ─ Glass ─ */
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-strong: rgba(255, 255, 255, 0.15);
+  --glass-blur: 20px;
+  --glass-blur-strong: 30px;
+
+  /* ─ Radii ─ */
+  --radius-card: 24px;
+  --radius-sm: 16px;
+  --radius-pill: 100px;
+
+  /* ─ Typography ─ */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+
+  /* ─ Transitions ─ */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s var(--ease-out);
+  --transition-base: 0.35s var(--ease-out);
+  --transition-slow: 0.6s var(--ease-out);
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ─ Selection ─ */
+::selection {
+  background: rgba(var(--accent-rgb), 0.25);
+  color: var(--accent);
+}
+
+::-moz-selection {
+  background: rgba(var(--accent-rgb), 0.25);
+  color: var(--accent);
+}
+
+/* ─ Scrollbar ─ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--accent-rgb), 0.2);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--accent-rgb), 0.35);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--accent-rgb), 0.2) var(--bg-primary);
+}
+
+/* ============================================================
+   3. GLASS COMPONENT SYSTEM
+   ============================================================ */
+.glass {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+  transition: border-color var(--transition-base),
+              box-shadow var(--transition-base),
+              background var(--transition-base);
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(var(--accent-rgb), 0.06),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glass:hover::before {
+  opacity: 1;
+}
+
+.glass:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+.glass-strong {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border-strong);
+  border-radius: var(--radius-card);
+  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+  backdrop-filter: blur(var(--glass-blur-strong));
+}
+
+.glass-strong::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(var(--accent-rgb), 0.08),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glass-strong:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   4. NAVIGATION
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  height: 70px;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 15, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition: background var(--transition-base),
+              border-color var(--transition-base),
+              backdrop-filter var(--transition-base);
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 15, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.nav-logo {
+  height: 45px;
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.06);
+  transition: opacity var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.nav-logo:hover {
+  opacity: 0.9;
+  border-color: rgba(var(--accent-rgb), 0.25);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25),
+              inset 0 1px 1px rgba(255, 255, 255, 0.08),
+              0 0 12px rgba(var(--accent-rgb), 0.1);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  position: relative;
+  padding: 0.25rem 0;
+  transition: color var(--transition-fast);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 100px;
+  transition: width var(--transition-base);
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: var(--radius-pill);
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.nav-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.35);
+  color: var(--bg-primary);
+}
+
+/* ─ Mobile Menu Button ─ */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 100px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   5. HERO SECTION
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 70px clamp(1rem, 4vw, 3rem) 4rem;
+}
+
+/* ─ Animated Background Orbs ─ */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.hero-orb:nth-child(1) {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.35), transparent 70%);
+  top: -10%;
+  right: -5%;
+  opacity: 0.4;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-orb:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.35), transparent 70%);
+  bottom: -5%;
+  left: -8%;
+  opacity: 0.35;
+  animation: float2 10s ease-in-out infinite;
+}
+
+.hero-orb:nth-child(3) {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(var(--tertiary-rgb), 0.3), transparent 70%);
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.3;
+  animation: float3 12s ease-in-out infinite;
+}
+
+/* ─ Hero Content ─ */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-logo {
+  width: 200px;
+  height: auto;
+  margin: 0 auto 2rem;
+  border-radius: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3),
+              0 0 30px rgba(var(--accent-rgb), 0.2),
+              inset 0 1px 2px rgba(255, 255, 255, 0.08);
+  animation: fade-in-up 0.8s var(--ease-out) both;
+  transition: border-color var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.hero-logo:hover {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  box-shadow: 0 8px 50px rgba(0, 0, 0, 0.35),
+              0 0 40px rgba(var(--accent-rgb), 0.3),
+              inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  animation: fade-in-up 0.8s var(--ease-out) 0.1s both;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--secondary), var(--tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  animation: fade-in-up 0.8s var(--ease-out) 0.2s both;
+}
+
+/* ─ $15 Badge ─ */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+  animation: fade-in-up 0.8s var(--ease-out) 0.3s both,
+             pulse-glow 3s ease-in-out infinite 1s;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.hero-badge i {
+  font-size: 1.1rem;
+}
+
+/* ─ Hero CTAs ─ */
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  animation: fade-in-up 0.8s var(--ease-out) 0.4s both;
+}
+
+/* ─ Buttons ─ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.4),
+              0 0 60px rgba(var(--accent-rgb), 0.15);
+  color: var(--bg-primary);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: transform var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  transform: scale(1.05);
+  border-color: rgba(var(--accent-rgb), 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.1);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+/* ============================================================
+   6. SECTIONS (General)
+   ============================================================ */
+.section {
+  padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 4vw, 3rem);
+  position: relative;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 0.4rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   7. SERVICES SECTION
+   ============================================================ */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  padding: 2rem;
+  text-align: left;
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base);
+  cursor: default;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.service-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.12),
+    rgba(var(--secondary-rgb), 0.12)
+  );
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.service-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   8. PRICING / PRODUCT CATALOGUE SECTION
+   ============================================================ */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  position: relative;
+  transition: transform var(--transition-base),
+              box-shadow var(--transition-base);
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+}
+
+/* ─ Featured / Starter Plan ─ */
+.pricing-card.featured {
+  border-color: rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 0 40px rgba(var(--accent-rgb), 0.1),
+              0 0 80px rgba(var(--accent-rgb), 0.04);
+}
+
+.pricing-card.featured::after {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.pricing-card .price-tag {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  margin-bottom: 0.25rem;
+}
+
+.pricing-card .price-tag .currency {
+  font-size: 1.5rem;
+  vertical-align: super;
+}
+
+.pricing-card .price-label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.pricing-card .card-description {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.pricing-card .features {
+  text-align: left;
+  margin: 1.5rem 0;
+  padding: 0;
+}
+
+.pricing-card .features li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  line-height: 1.4;
+}
+
+.pricing-card .features li:last-child {
+  border-bottom: none;
+}
+
+.pricing-card .features li .check {
+  color: var(--accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.pricing-card .card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-fast);
+  border: none;
+}
+
+.pricing-card .card-cta.cta-primary {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.pricing-card .card-cta.cta-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.35);
+}
+
+.pricing-card .card-cta.cta-secondary {
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.pricing-card .card-cta.cta-secondary:hover {
+  background: rgba(var(--accent-rgb), 0.18);
+  transform: scale(1.03);
+}
+
+/* ─ Contact / Music Video Card ─ */
+.contact-card-special {
+  position: relative;
+  background: var(--glass-bg);
+  border-radius: var(--radius-card);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.contact-card-special::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.4),
+    rgba(var(--secondary-rgb), 0.4),
+    rgba(var(--tertiary-rgb), 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,
+               linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ============================================================
+   9. WHY CHOOSE US / STATS SECTION
+   ============================================================ */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  min-width: 120px;
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 2rem;
+  text-align: center;
+  transition: transform var(--transition-base);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-card .feature-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.12),
+    rgba(var(--secondary-rgb), 0.12)
+  );
+  color: var(--accent);
+}
+
+.feature-card h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   10. REFUND SECTION
+   ============================================================ */
+.refund-banner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+}
+
+.refund-badge {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 16px rgba(var(--accent-rgb), 0.35));
+}
+
+.refund-banner h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.refund-banner p {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   11. CONTACT SECTION
+   ============================================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-card {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform var(--transition-base);
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+}
+
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.15),
+    rgba(var(--tertiary-rgb), 0.12)
+  );
+  color: var(--accent);
+}
+
+.contact-info h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.contact-info p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contact-info a {
+  color: var(--accent);
+  transition: opacity var(--transition-fast);
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+
+/* ─ Pricing Highlight Banner ─ */
+.pricing-highlight {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pricing-highlight-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(var(--accent-rgb), 0.25);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.pricing-highlight-inner i {
+  color: #ff6b35;
+  font-size: 1.3rem;
+}
+
+.pricing-highlight-inner strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ─ Pricing Card Icon ─ */
+.pricing-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--accent-rgb), 0.12),
+    rgba(var(--secondary-rgb), 0.12)
+  );
+  color: var(--accent);
+}
+
+/* ─ Pricing Card Description ─ */
+.pricing-card-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  min-height: 2.7em;
+}
+
+/* ─ Featured Badge ─ */
+.featured-badge {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  background: linear-gradient(135deg, var(--accent), #00c99a);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 0.45rem 1.2rem;
+  border-radius: 0 var(--radius-card) 0 var(--radius-sm);
+  text-transform: uppercase;
+  z-index: 5;
+}
+
+/* ─ Contact/Music Video Price ─ */
+.contact-price {
+  font-size: 3rem !important;
+  color: var(--accent) !important;
+  -webkit-text-fill-color: var(--accent) !important;
+  background: none !important;
+}
+
+.pricing-contact-card {
+  border-color: rgba(var(--secondary-rgb), 0.25);
+}
+
+.pricing-contact-card:hover {
+  border-color: rgba(var(--secondary-rgb), 0.4);
+  box-shadow: 0 0 40px rgba(var(--secondary-rgb), 0.1);
+}
+
+/* ─ Feature list checkmark icon color ─ */
+.pricing-card .features li i {
+  color: var(--accent);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* ─ Refund Shield ─ */
+.refund-shield {
+  font-size: 3.5rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 20px rgba(var(--accent-rgb), 0.4));
+}
+
+/* ─ Refund Badges Row ─ */
+.refund-badges {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.refund-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.refund-badge-item i {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+/* ─ Section Alt (alternating background) ─ */
+.section-alt {
+  background: var(--bg-secondary);
+}
+
+/* ─ Hero Grid Overlay ─ */
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 1;
+  mask-image: radial-gradient(ellipse at center, transparent 20%, black 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 20%, black 80%);
+}
+
+/* ─ Hero Scroll Indicator ─ */
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-wheel {
+  width: 4px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-wheel 2s ease-in-out infinite;
+}
+
+@keyframes scroll-wheel {
+  0%, 100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateX(-50%) translateY(12px);
+  }
+}
+
+/* ─ Nav Logo Link ─ */
+.nav-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+.footer {
+  background: var(--glass-bg-strong);
+  border-top: 1px solid var(--glass-border);
+  padding: 3rem clamp(1rem, 4vw, 3rem) 1.5rem;
+  margin-top: 2rem;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-brand p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+.footer-logo {
+  height: 40px;
+  width: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  opacity: 0.8;
+  transition: opacity var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+.footer-logo:hover {
+  opacity: 1;
+  border-color: rgba(var(--accent-rgb), 0.2);
+}
+
+.footer-links-group h4 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.footer-links-group .footer-links {
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-links-group .footer-links li a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-bottom p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ============================================================
+   13. WHATSAPP FLOATING BUTTON
+   ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+  color: #ffffff;
+}
+
+.whatsapp-float:active {
+  transform: scale(0.95);
+}
+
+.whatsapp-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid rgba(37, 211, 102, 0.5);
+  animation: pulse-ring 2s ease-out infinite;
+  pointer-events: none;
+}
+
+/* ============================================================
+   14. KEYFRAME ANIMATIONS
+   ============================================================ */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  33% {
+    transform: translateY(-15px) translateX(10px);
+  }
+  66% {
+    transform: translateY(10px) translateX(-8px);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  25% {
+    transform: translateX(-50%) translateY(-12px);
+  }
+  50% {
+    transform: translateX(-45%) translateY(8px);
+  }
+  75% {
+    transform: translateX(-55%) translateY(-6px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.15),
+                0 0 20px rgba(var(--accent-rgb), 0.08);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3),
+                0 0 40px rgba(var(--accent-rgb), 0.15);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ============================================================
+   15. SCROLL-TRIGGERED ANIMATIONS
+   ============================================================ */
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─ Stagger delays ─ */
+.animate-in:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.animate-in:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.animate-in:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.animate-in:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+.animate-in:nth-child(5) {
+  transition-delay: 0.4s;
+}
+
+.animate-in:nth-child(6) {
+  transition-delay: 0.5s;
+}
+
+.animate-in:nth-child(7) {
+  transition-delay: 0.6s;
+}
+
+.animate-in:nth-child(8) {
+  transition-delay: 0.7s;
+}
+
+/* ============================================================
+   16. UTILITY CLASSES
+   ============================================================ */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent), var(--secondary), var(--tertiary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-secondary-color {
+  color: var(--text-secondary);
+}
+
+.text-muted-color {
+  color: var(--text-muted);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================================
+   17. RESPONSIVE — TABLET (max-width: 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .services-grid,
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .stats-row {
+    gap: 2rem;
+  }
+
+  .refund-banner {
+    padding: 2.5rem 2rem;
+  }
+
+  .hero-content {
+    max-width: 750px;
+  }
+
+  .footer-content {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+/* ============================================================
+   18. RESPONSIVE — MOBILE (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* ─ Navigation ─ */
+  .nav-links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    background: rgba(10, 10, 15, 0.95);
+    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(30px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links a {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  /* ─ Hero ─ */
+  .hero {
+    min-height: 100svh;
+    padding: 100px 1.25rem 3rem;
+  }
+
+  .hero-logo {
+    width: 150px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 1.2rem;
+  }
+
+  .hero-orb:nth-child(1) {
+    width: 300px;
+    height: 300px;
+  }
+
+  .hero-orb:nth-child(2) {
+    width: 250px;
+    height: 250px;
+  }
+
+  .hero-orb:nth-child(3) {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* ─ Grids ─ */
+  .services-grid,
+  .features-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* ─ Stats ─ */
+  .stats-row {
+    gap: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  /* ─ Refund ─ */
+  .refund-banner {
+    padding: 2rem 1.5rem;
+  }
+
+  .refund-badge {
+    font-size: 2.5rem;
+  }
+
+  /* ─ Footer ─ */
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    gap: 2rem;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+
+  .hero-scroll-indicator {
+    display: none;
+  }
+
+  .refund-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .pricing-highlight-inner {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+  /* ─ Section spacing ─ */
+  .section {
+    padding: clamp(3rem, 8vw, 6rem) 1.25rem;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+}
+
+/* ============================================================
+   19. RESPONSIVE — SMALL MOBILE (max-width: 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  /* ─ Typography ─ */
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* ─ Hero CTAs stack ─ */
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.9rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  /* ─ Hero Logo ─ */
+  .hero-logo {
+    width: 120px;
+  }
+
+  /* ─ Grids to single column ─ */
+  .services-grid,
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ─ Cards ─ */
+  .service-card,
+  .feature-card {
+    padding: 1.5rem;
+  }
+
+  .pricing-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .contact-card {
+    padding: 1.5rem;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  /* ─ Stats ─ */
+  .stats-row {
+    gap: 1rem;
+  }
+
+  .stat-item {
+    min-width: 80px;
+  }
+
+  /* ─ Refund ─ */
+  .refund-banner {
+    padding: 1.5rem;
+  }
+
+  /* ─ Footer ─ */
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-brand {
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-brand p {
+    max-width: none;
+  }
+
+  .footer-links-group {
+    text-align: center;
+  }
+
+  .footer-links-group .footer-links {
+    align-items: center;
+  }
+
+  /* ─ WhatsApp button ─ */
+  .whatsapp-float {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+  }
+
+  /* ─ Navbar ─ */
+  .navbar {
+    height: 60px;
+    padding: 0 1rem;
+  }
+
+  .nav-logo {
+    height: 36px;
+  }
+
+  /* ─ General spacing ─ */
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* ============================================================
+   20. REDUCED MOTION PREFERENCE
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-orb {
+    animation: none !important;
+  }
+
+  .animate-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   21. PRINT STYLES
+   ============================================================ */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .navbar,
+  .whatsapp-float,
+  .hero-bg,
+  .hero-badge {
+    display: none;
+  }
+
+  .glass,
+  .glass-strong {
+    background: transparent;
+    border: 1px solid #ccc;
+    backdrop-filter: none;
+  }
+
+  .gradient-text,
+  .text-gradient,
+  .stat-number,
+  .pricing-card .price-tag,
+  .refund-banner h2 {
+    -webkit-text-fill-color: #000;
+    color: #000;
+    background: none;
+  }
+}
