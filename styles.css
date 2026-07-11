@@ -11,8 +11,8 @@
    ============================================================ */
 :root {
   /* ─ Backgrounds ─ */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #0d0d14;
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
 
   /* ─ Accents ─ */
   --accent: #5dffd2;
@@ -851,19 +851,6 @@ html {
               0 0 80px rgba(var(--accent-rgb), 0.04);
 }
 
-.pricing-card.featured::after {
-  content: 'MOST POPULAR';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.25rem 0.8rem;
-  border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: var(--bg-primary);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
 
 .pricing-card .price-tag {
   font-family: var(--font-heading);
@@ -1193,6 +1180,87 @@ html {
   font-weight: 800;
   color: var(--accent);
   letter-spacing: 1px;
+}
+
+/* ============================================================
+   PORTFOLIO SECTION
+   ============================================================ */
+.portfolio-header {
+  text-align: center;
+  padding-bottom: 2rem !important;
+}
+
+.portfolio-category-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.portfolio-category-header h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: var(--text-primary);
+  display: inline-block;
+  position: relative;
+}
+
+.portfolio-category-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary));
+  border-radius: 2px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 350px;
+  margin: 0 auto;
+  width: 100%;
+  /* Responsive iframe wrapper for 9:16 vertical videos */
+  padding-bottom: 177.77%;
+  height: 0;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(var(--accent-rgb), 0.15);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  z-index: 2;
+}
+
+.portfolio-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Make the iframe exactly twice the size of the container to bypass Drive UI minimums */
+  width: 200%;
+  height: 200%;
+  /* Scale it down to half size so it visually perfectly fits */
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  border: none;
+  display: block;
 }
 
 /* ============================================================
@@ -2333,4 +2401,134 @@ html {
     color: #000;
     background: none;
   }
+}
+
+/* ============================================================
+   WHATSAPP TERMS MODAL
+   ============================================================ */
+.terms-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.terms-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.terms-modal {
+  max-width: 450px;
+  width: 90%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-radius: var(--radius-card);
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.terms-modal-overlay.active .terms-modal {
+  transform: translateY(0) scale(1);
+}
+
+.terms-modal h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.terms-modal p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.terms-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.terms-modal-btn {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  border: none;
+  font-family: var(--font-body);
+}
+
+.terms-modal-btn-cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.terms-modal-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.terms-modal-btn-agree {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.terms-modal-btn-agree:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.4);
+}
+
+/* ============================================================
+   CUSTOM BLUE GRADIENT CURSOR
+   ============================================================ */
+@media (pointer: fine) {
+  body, a, button, input, textarea, select, .nav-links a, .btn-primary, .btn-secondary {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  display: none;
+}
+
+@media (pointer: fine) {
+  .custom-cursor {
+    display: block;
+  }
+}
+
+.custom-cursor.hovering {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, rgba(0, 210, 255, 0.4) 0%, rgba(58, 123, 213, 0.4) 100%);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
+  border: 1px solid rgba(0, 210, 255, 0.8);
 }

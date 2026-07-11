@@ -246,3 +246,102 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 });
+
+/* ============================================================
+   WHATSAPP TERMS MODAL
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Create modal elements
+    const overlay = document.createElement('div');
+    overlay.className = 'terms-modal-overlay';
+    
+    const modal = document.createElement('div');
+    modal.className = 'terms-modal glass';
+    
+    modal.innerHTML = `
+        <h3>Notice</h3>
+        <p>If you take our service you will agree to the terms and conditions which are available at the bottom of the website.</p>
+        <div class="terms-modal-actions">
+            <button class="terms-modal-btn terms-modal-btn-cancel">Cancel</button>
+            <button class="terms-modal-btn terms-modal-btn-agree">OK, Continue</button>
+        </div>
+    `;
+    
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    
+    let pendingWhatsAppUrl = '';
+    
+    // Find all WhatsApp links (links containing wa.me)
+    const waLinks = document.querySelectorAll('a[href*="wa.me"]');
+    
+    waLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            pendingWhatsAppUrl = link.href;
+            overlay.classList.add('active');
+        });
+    });
+    
+    // Handle cancel
+    const cancelBtn = modal.querySelector('.terms-modal-btn-cancel');
+    cancelBtn.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        pendingWhatsAppUrl = '';
+    });
+    
+    // Handle agree
+    const agreeBtn = modal.querySelector('.terms-modal-btn-agree');
+    agreeBtn.addEventListener('click', () => {
+        overlay.classList.remove('active');
+        if (pendingWhatsAppUrl) {
+            window.open(pendingWhatsAppUrl, '_blank');
+        }
+    });
+});
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Only create custom cursor for non-touch devices
+    if (window.matchMedia('(pointer: fine)').matches) {
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        // Smooth follow animation
+        const animateCursor = () => {
+            // Adjust the 0.2 factor to change the speed/smoothness
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+        
+        // Hover effect for interactive elements
+        const interactables = document.querySelectorAll('a, button, input, textarea, select, .portfolio-item');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovering');
+            });
+        });
+    }
+});

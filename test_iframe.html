@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.portfolio-item {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  padding-bottom: 177.77%; /* 16:9 vertical */
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+
+.portfolio-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  border: none;
+}
+</style>
+</head>
+<body>
+<div class="portfolio-grid">
+  <div class="portfolio-item">
+      <iframe src="https://drive.google.com/file/d/1pISuKZ1EkaZsWSo6rhGbhf0hEQC4ULoO/preview" allow="autoplay" allowfullscreen class="portfolio-video"></iframe>
+  </div>
+</div>
+</body>
+</html>
