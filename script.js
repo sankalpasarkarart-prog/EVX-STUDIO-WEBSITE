@@ -146,18 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navbar.classList.remove('scrolled');
       }
 
-      // Hide POV banner after scrolling past hero
-      if (povBanner) {
-        if (window.scrollY > 300) {
-          povBanner.style.opacity = '0';
-          povBanner.style.pointerEvents = 'none';
-          povBanner.style.transform = 'translateY(-20px)';
-        } else {
-          povBanner.style.opacity = '1';
-          povBanner.style.pointerEvents = 'auto';
-          povBanner.style.transform = 'translateY(0)';
-        }
-      }
+
     }, { passive: true });
   }
 
