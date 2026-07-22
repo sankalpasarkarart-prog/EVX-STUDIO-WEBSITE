@@ -347,6 +347,7 @@ html {
   height: 40px;
   gap: 5px;
   cursor: pointer;
+  position: relative;
   z-index: 1001;
 }
 
@@ -369,6 +370,78 @@ html {
 
 .mobile-menu-btn.active span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   8. GLOBAL ANIMATED BACKGROUND
+   ============================================================ */
+.global-animated-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+.bg-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.25), transparent 70%);
+  top: -10%;
+  right: -10%;
+  opacity: 0.4;
+  animation: float-bg 20s ease-in-out infinite alternate;
+}
+
+.bg-orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.25), transparent 70%);
+  bottom: -10%;
+  left: -10%;
+  opacity: 0.35;
+  animation: float-bg-reverse 25s ease-in-out infinite alternate;
+}
+
+.bg-orb-3 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15), transparent 70%);
+  top: 40%;
+  left: 30%;
+  opacity: 0.3;
+  animation: float-bg 30s ease-in-out infinite alternate;
+}
+
+.bg-noise-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+}
+
+@keyframes float-bg {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-3vw, 5vh) scale(1.1); }
+  100% { transform: translate(5vw, -3vh) scale(0.9); }
+}
+
+@keyframes float-bg-reverse {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4vw, -6vh) scale(1.15); }
+  100% { transform: translate(-2vw, 4vh) scale(0.85); }
 }
 
 /* ============================================================
@@ -1853,15 +1926,19 @@ html {
 }
 
 /* ============================================================
-   15. SCROLL-TRIGGERED ANIMATIONS
+   15. SCROLL-TRIGGERED ANIMATIONS (Progressive Enhancement)
+   Elements are VISIBLE by default so Googlebot can index them.
+   JS adds .js-loaded to <html>, which then hides them for the
+   scroll-reveal effect. No JS = fully visible page.
    ============================================================ */
-.animate-in {
+.js-loaded .animate-in {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animate-in.visible {
+.js-loaded .animate-in.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1988,28 +2065,36 @@ html {
 @media (max-width: 768px) {
   /* ─ Navigation ─ */
   .nav-links {
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    top: 70px; /* height of navbar */
+    right: 1rem;
+    left: 1rem;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2.5rem;
+    gap: 1.5rem;
     background: rgba(10, 10, 15, 0.95);
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    border-radius: var(--radius-card);
+    padding: 2rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.35s ease, visibility 0.35s ease;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
   .nav-links.active {
     opacity: 1;
     visibility: visible;
+    transform: translateY(0);
   }
 
   .nav-links a {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
   }
@@ -2202,6 +2287,21 @@ html {
 
   .pov-banner-inner p {
     font-size: 0.75rem;
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .contact-buttons .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .floating-graphic {
+    transform: scale(0.6);
   }
 
   .closing-cta {
@@ -2561,4 +2661,233 @@ html {
 
 .custom-cursor.hovering::after {
   opacity: 0.2;
+}
+
+/* ============================================================
+   GROWTH CHART ANIMATIONS (WHY US SECTION)
+   ============================================================ */
+.growth-chart-wrapper {
+  margin: 4rem auto;
+  max-width: 1000px;
+  padding: 2.5rem;
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(var(--accent-rgb), 0.1);
+}
+
+.chart-header {
+  text-align: center;
+}
+
+.chart-header h3 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.chart-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.chart-container {
+  width: 100%;
+  height: 350px;
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-growth-chart {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chart-grid line {
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 1;
+}
+
+/* Chart elements start hidden — JS triggers animation on scroll */
+.chart-fill {
+  opacity: 0;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+}
+
+.chart-line-glow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  filter: blur(12px);
+}
+
+.chart-point {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 3;
+  opacity: 0;
+}
+
+/* Animated state — triggered by JS adding .chart-animate */
+.chart-animate .chart-fill {
+  animation: fade-in-fill 2s ease-out 0.8s forwards;
+}
+
+.chart-animate .chart-line {
+  animation: draw-line 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chart-animate .chart-line-glow {
+  animation: draw-line 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+             glow-pulse 3s ease-in-out 2.5s infinite alternate;
+}
+
+.chart-animate .chart-point.p1 { animation: pop-point 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards; }
+.chart-animate .chart-point.p2 { animation: pop-point 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.0s forwards; }
+.chart-animate .chart-point.p3 { animation: pop-point 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards; }
+.chart-animate .chart-point.p4 { animation: pop-point 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.0s forwards; }
+.chart-animate .chart-point.p5 { animation: pop-point 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.5s forwards; }
+
+/* Continuous glow on data points after appearing */
+.chart-animate .chart-point.p1,
+.chart-animate .chart-point.p2,
+.chart-animate .chart-point.p3,
+.chart-animate .chart-point.p4 {
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.chart-animate .chart-point.p5 {
+  filter: drop-shadow(0 0 12px var(--accent)) drop-shadow(0 0 24px var(--accent));
+}
+
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fade-in-fill {
+  to { opacity: 1; }
+}
+
+@keyframes pop-point {
+  0% { r: 0; opacity: 0; }
+  80% { r: 8; opacity: 1; }
+  100% { r: 5; opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+/* ============================================================
+   FREE CONSULTATION SECTION
+   ============================================================ */
+.consultation-section {
+  padding-bottom: 8rem;
+}
+
+.consultation-card {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.consultation-card .section-subtitle {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.btn-large {
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  border-radius: 100px;
+}
+
+.cta-glow {
+  animation: pulse-glow-strong 2s infinite alternate;
+}
+
+@media (max-width: 768px) {
+  .growth-chart-wrapper {
+    padding: 1.5rem;
+    margin: 3rem 1rem;
+  }
+  .chart-header h3 {
+    font-size: 1.5rem;
+  }
+  .chart-container {
+    height: 250px;
+  }
+  .consultation-card {
+    padding: 2.5rem 1rem;
+  }
+}
+
+/* ============================================================
+   FLOATING ANIMATED GRAPHICS
+   ============================================================ */
+.floating-graphic {
+  position: absolute;
+  color: var(--accent);
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.float-1 {
+  top: 20%;
+  left: 10%;
+  font-size: 4rem;
+  animation: float-up-down 6s ease-in-out infinite;
+}
+
+.float-2 {
+  bottom: 20%;
+  right: 15%;
+  font-size: 5rem;
+  animation: float-up-down 8s ease-in-out infinite reverse;
+}
+
+.float-3 {
+  top: 30%;
+  right: 10%;
+  font-size: 3rem;
+  animation: float-up-down 7s ease-in-out infinite 2s;
+}
+
+.float-4 {
+  bottom: 15%;
+  left: 20%;
+  font-size: 4.5rem;
+  animation: float-up-down 9s ease-in-out infinite 1s reverse;
+}
+
+@keyframes float-up-down {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }

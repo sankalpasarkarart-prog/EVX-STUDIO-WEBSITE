@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
   // ──────────────────────────────────────────────────────────
+  // 0. PROGRESSIVE ENHANCEMENT
+  //    Signals to CSS that JavaScript is active.
+  // ──────────────────────────────────────────────────────────
+  document.documentElement.classList.add('js-loaded');
+
+  // ──────────────────────────────────────────────────────────
   // 1. MOUSE TRACKING SYSTEM FOR GLASS ELEMENTS
   //    Every .glass element responds to the cursor via
   //    --mouse-x / --mouse-y custom properties that drive
@@ -82,6 +88,28 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     animateInElements.forEach((el) => animObserver.observe(el));
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // 3b. GROWTH CHART SCROLL ANIMATION
+  //     The SVG chart only begins animating when the user
+  //     scrolls it into view (adds .chart-animate class).
+  // ──────────────────────────────────────────────────────────
+
+  const growthChart = document.getElementById('growthChart');
+  if (growthChart) {
+    const chartObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            growthChart.classList.add('chart-animate');
+            chartObserver.unobserve(growthChart);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    chartObserver.observe(growthChart);
   }
 
   // ──────────────────────────────────────────────────────────

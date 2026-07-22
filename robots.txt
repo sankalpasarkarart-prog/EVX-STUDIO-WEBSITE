@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://evxstudio.in/sitemap.xml
+Sitemap: https://www.evxstudio.in/sitemap.xml
