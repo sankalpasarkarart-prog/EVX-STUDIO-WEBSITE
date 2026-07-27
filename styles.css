@@ -2795,6 +2795,46 @@ html {
   100% { opacity: 0.8; }
 }
 
+.chart-node {
+  cursor: pointer;
+}
+
+.chart-hover-area {
+  cursor: pointer;
+}
+
+.chart-tooltip {
+  opacity: 0;
+  fill: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  text-anchor: middle;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(10px);
+}
+
+.chart-tooltip.final {
+  fill: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
+}
+
+.chart-node:hover .chart-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chart-node:hover .chart-point {
+  fill: var(--accent);
+  r: 12;
+  stroke-width: 4;
+  filter: drop-shadow(0 0 15px var(--accent));
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 /* ============================================================
    FREE CONSULTATION SECTION
    ============================================================ */
