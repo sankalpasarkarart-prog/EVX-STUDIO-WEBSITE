@@ -362,3 +362,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress-bar';
+    document.body.appendChild(progressBar);
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercentage + '%';
+    }, { passive: true });
+});
