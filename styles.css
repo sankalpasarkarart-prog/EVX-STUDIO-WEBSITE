@@ -1317,6 +1317,12 @@ html {
   height: 0;
 }
 
+.portfolio-item.horizontal {
+  /* Responsive iframe wrapper for 16:9 horizontal videos */
+  padding-bottom: 56.25%;
+  max-width: 800px;
+}
+
 .portfolio-item:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
