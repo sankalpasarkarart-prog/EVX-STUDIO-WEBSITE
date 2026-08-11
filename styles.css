@@ -22,13 +22,13 @@
   --tertiary: #8b5cf6;
   --tertiary-rgb: 139, 92, 246;
 
-  /* ─ Glass ─ */
-  --glass-bg: rgba(148, 163, 184, 0.05);
-  --glass-bg-strong: rgba(148, 163, 184, 0.09);
-  --glass-border: rgba(148, 163, 184, 0.1);
-  --glass-border-strong: rgba(148, 163, 184, 0.2);
-  --glass-blur: 20px;
-  --glass-blur-strong: 30px;
+  /* 🔹 Glass 🔹 */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg-strong: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-border-strong: rgba(255, 255, 255, 0.25);
+  --glass-blur: 24px;
+  --glass-blur-strong: 40px;
 
   /* ─ Radii ─ */
   --radius-card: 24px;
@@ -238,6 +238,7 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+  overflow: visible !important;
   transition: background var(--transition-base),
               border-color var(--transition-base),
               backdrop-filter var(--transition-base);
@@ -379,32 +380,32 @@ html {
 }
 
 .bg-orb-1 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.25), transparent 70%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.4), transparent 70%);
   top: -10%;
   right: -10%;
-  opacity: 0.4;
+  opacity: 0.8;
   animation: float-bg 20s ease-in-out infinite alternate;
 }
 
 .bg-orb-2 {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.25), transparent 70%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(var(--tertiary-rgb), 0.4), transparent 70%);
   bottom: -10%;
   left: -10%;
-  opacity: 0.35;
+  opacity: 0.8;
   animation: float-bg-reverse 25s ease-in-out infinite alternate;
 }
 
 .bg-orb-3 {
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15), transparent 70%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(var(--secondary-rgb), 0.3), transparent 70%);
   top: 40%;
   left: 30%;
-  opacity: 0.3;
+  opacity: 0.7;
   animation: float-bg 30s ease-in-out infinite alternate;
 }
 
@@ -1644,7 +1645,7 @@ html {
 
 /* ─ Section Alt (alternating background) ─ */
 .section-alt {
-  background: var(--bg-secondary);
+  background: transparent;
 }
 
 /* ─ Hero Grid Overlay ─ */
@@ -2055,32 +2056,32 @@ html {
 @media (max-width: 768px) {
   /* ─ Navigation ─ */
   .nav-links {
-    position: absolute;
-    top: 70px; /* height of navbar */
-    right: 1rem;
-    left: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50vw;
+    height: 100vh;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    background: rgba(10, 10, 15, 0.95);
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2rem;
+    background: rgba(10, 10, 15, 0.98);
     -webkit-backdrop-filter: blur(30px);
     backdrop-filter: blur(30px);
-    border: 1px solid rgba(var(--accent-rgb), 0.2);
-    border-radius: var(--radius-card);
-    padding: 2rem;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    border: none;
+    border-right: 1px solid rgba(var(--accent-rgb), 0.2);
+    border-radius: 0;
+    padding: 100px 2rem 2rem;
+    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.4s;
   }
 
   .nav-links.active {
-    opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
   .nav-links a {
