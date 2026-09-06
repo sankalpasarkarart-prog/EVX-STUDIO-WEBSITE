@@ -36,9 +36,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    
-    <!-- Wistia Video Player Script -->
-    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
 
     <!-- Fallback: ensure all content is visible if JS fails to load -->
     <noscript>
@@ -98,10 +95,10 @@
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/ut2udo9xicd813u" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1KZVtzRyW3YrGnYSB1e22Lb5KWN_0MgUy/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/fns41bbvlaqcxc2" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1RWsc_yQ-sMvjmHwImUEFdRL5HANW5bEz/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
         </div>
     </section>
@@ -113,16 +110,13 @@
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/6r4259ozhhahrae" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1rqGF3roInBb6fV8TrbPrOcFPRH3Nyixz/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/9npml9kstwmohvj" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
-            </div>
-            <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/lvsbrhbse1sin53" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1semUn7bhAgh8uSbaURwPnwNHjJv8kjg6/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item horizontal glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/lvsbrhbse1sin53" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1AFiTrjZmDYxVUl-IsjAcCfDGuY4k1UDj/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
         </div>
     </section>
@@ -134,13 +128,13 @@
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/mhcabyu7vw52fu8" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1nPErAUwx5_bCSxAIMrbyvvrDV7Fn18i6/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/id1vmjclzmdogg8" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1OuNGfQr_jKw5seGmYq10WWzKqzgvjk8G/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/2xzu6b4g3yl6amq" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/13C0HGtXWch9q6eJn5gU3wtLGlmtG4lUe/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
         </div>
     </section>
@@ -152,22 +146,22 @@
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/a9pceh6dryfy95s" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1gIyHxsvP5vjiI1FE7tDzhrwcq5dx4HYP/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/0w50ksxnreqw55j" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1kEhsdds7juwZSVKjAUA5Vwqi19c3LCnJ/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/o3v23kw0kr827da" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1qtqFmiVsmkovlREz9bKxVmFhYS8vFmm1/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/01hlqyj5xxa1kaz" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1_rVubnetj4A1qjoJPEPrkc6-0rTaN--m/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/z6v2f64axh1f51x" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1MJdOsjRiwKErrSBIG-30rcFcyVNJm5R-/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
             <div class="portfolio-item glass animate-in">
-                <iframe src="https://fast.wistia.net/embed/iframe/vyplwa9ce1zgc5i" allow="autoplay; fullscreen" allowtransparency="true" class="portfolio-video" style="border:none;"></iframe>
+                <iframe src="https://drive.google.com/file/d/1FA1AZ_dDAJn6RnP_G0MXQRTw4SLdRQ-9/preview" allow="autoplay" allowfullscreen class="portfolio-video" style="border:none;"></iframe>
             </div>
         </div>
     </section>
