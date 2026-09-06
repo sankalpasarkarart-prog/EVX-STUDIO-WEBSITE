@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     modal.innerHTML = `
         <h3>Notice</h3>
-        <p>If you take our service you will agree to the terms and conditions which are available at the bottom of the website.</p>
+        <p>If you take our service, you agree to our <a href="/terms.html" style="color: var(--accent); text-decoration: underline;">Terms and Conditions</a>.</p>
         <div class="terms-modal-actions">
             <button class="terms-modal-btn terms-modal-btn-cancel">Cancel</button>
             <button class="terms-modal-btn terms-modal-btn-agree">OK, Continue</button>
@@ -300,6 +300,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    
+    // Expose globally for cart.js
+    window.openWhatsAppWithTerms = function(url) {
+        pendingWhatsAppUrl = url;
+        overlay.classList.add('active');
+    };
+
     // Handle cancel
     const cancelBtn = modal.querySelector('.terms-modal-btn-cancel');
     cancelBtn.addEventListener('click', () => {

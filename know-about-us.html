@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://www.evxstudio.in/terms">
+    <title>Know About Us — EVX STUDIO</title>
+    <meta name="theme-color" content="#0a0a0f">
+    <meta name="color-scheme" content="dark">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .terms-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .terms-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .terms-content .subtitle {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+        .terms-content h2 {
+            font-family: var(--font-heading);
+            color: var(--text-primary);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .terms-content p, .terms-content ul {
+            margin-bottom: 1.5rem;
+        }
+        .terms-content ul {
+            padding-left: 1.5rem;
+        }
+        .terms-content li {
+            margin-bottom: 0.5rem;
+        }
+        .terms-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .terms-table th, .terms-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+        }
+        .terms-table th {
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- ======== GLOBAL ANIMATED BACKGROUND ======== -->
+    <div class="global-animated-bg">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="bg-noise-overlay"></div>
+    </div>
+
+    <!-- ======== NAVBAR ======== -->
+    <nav class="navbar glass" id="navbar">
+        <a href="index.html" class="nav-logo-link">
+            <img src="assets/logo.png" alt="EVX STUDIO Logo" class="nav-logo">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+            <li><a href="index.html#why-us">Why Us</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li>
+                <a href="/portfolio" class="nav-cta">
+                    <i class="ri-gallery-line"></i> Portfolio
+                </a>
+            </li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    <style>
+        .about-content {
+            max-width: 900px;
+            margin: 150px auto 4rem;
+            padding: 0 1.5rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .about-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .about-subtitle {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .process-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 3rem;
+            border-radius: var(--radius-card);
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+        .process-box h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .process-box h3 i {
+            color: var(--accent);
+        }
+        .process-step {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .step-number {
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            font-family: var(--font-heading);
+        }
+    </style>
+
+    <main class="about-content animate-in">
+        <div class="about-header">
+            <h1 class="about-title">Know About Us</h1>
+            <div class="about-subtitle">We are EVX Studio. A powerhouse team of 15+ artists, designers, 2D/3D animators, video editors, and motion graphics experts.</div>
+        </div>
+
+        <div class="process-box glass-strong">
+            <h3><i class="ri-team-line"></i> Our Team & Leadership</h3>
+            <p>Every single order at EVX STUDIO is personally handled by our founder, Eshan. He either creates and edits the video himself, or directly manages our elite editors, providing strict creative direction to ensure the final product meets our premium standards.</p>
+            <p>Beyond our editing talent, we have dedicated scriptwriters, content strategists, and managers who handle end-to-end social media profiles for our clients.</p>
+        </div>
+
+        <div class="process-box glass-strong">
+            <h3><i class="ri-flow-chart"></i> How We Process Orders</h3>
+            
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <div>
+                    <strong>Strategy & Blueprint</strong><br>
+                    First, our content strategist analyzes the market and creates a comprehensive pathway for us to follow. They provide the initial instructions and creative direction for the campaign.
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <div>
+                    <strong>Scripting</strong><br>
+                    We ask the client for their topic or core message. Our dedicated scriptwriters then craft an engaging, highly informative, and retention-optimized script.
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <div>
+                    <strong>Production & Editing</strong><br>
+                    If your plan includes a shoot, our team handles it on-site. If not, you provide the raw data or footage, and we get to work. The best video editors on our team meticulously process your videos under the direct supervision of the founder.
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <div>
+                    <strong>Review & Revisions</strong><br>
+                    When the video is ready, we share it with you. We stand firmly by our work. If you want any adjustments, we provide revisions. If we ever make a mistake or fall short of our promise, we will give you a free revision or a full refund. We care deeply about client satisfaction.
+                </div>
+            </div>
+            
+            <div class="process-step">
+                <div class="step-number">5</div>
+                <div>
+                    <strong>Final Delivery</strong><br>
+                    Our QA team thoroughly checks every frame, audio channel, and graphic before finalizing and completing the order.
+                </div>
+            </div>
+        </div>
+    </main>
+<!-- ======== FOOTER ======== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <p>Premium media production company crafting visual stories for brands worldwide.</p>
+
+                <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; max-width: 250px;">
+                    <a href="/know-about-the-founder" class="btn-primary" style="text-align: center; padding: 0.8rem; font-size: 0.95rem;">Know About the Founder</a>
+                    <a href="/know-about-us" class="btn-primary" style="text-align: center; padding: 0.8rem; font-size: 0.95rem; background: rgba(var(--accent-rgb), 0.1); border: 1px solid var(--accent); box-shadow: none;">Know About Us</a>
+                </div>
+
+            </div>
+            <div class="footer-links-group">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#pricing">Pricing</a></li>
+                    <li><a href="index.html#why-us">Why Us</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-group">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#pricing">YouTube Shorts</a></li>
+                    <li><a href="index.html#pricing">Corporate Videos</a></li>
+                    <li><a href="index.html#pricing">SaaS Animation</a></li>
+                    <li><a href="index.html#pricing">Graphic Design</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-group">
+                <h4>Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="https://wa.me/+919239048684" target="_blank"><i class="ri-whatsapp-line"></i> WhatsApp</a></li>
+                    <li><a href="mailto:support@evxstudio.in" style="text-transform: lowercase;"><i class="ri-mail-line"></i> support@evxstudio.in</a></li>
+                    <li><a href="/portfolio"><i class="ri-gallery-line"></i> Portfolio</a></li>
+                    <li><a href="/terms"><i class="ri-file-paper-2-line"></i> Terms & Conditions</a></li>
+                    <li><a href="/sitemap.xml"><i class="ri-node-tree"></i> Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 EVX STUDIO. All rights reserved. Founded by <strong>ESHAN</strong>. <br> <span class="cursive">made with ❤️ by EVX STUDIO</span></p>
+        </div>
+    </footer>
+
+    <!-- ======== WHATSAPP FLOATING BUTTON ======== -->
+    <a href="https://wa.me/+919239048684" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Chat on WhatsApp" id="whatsappFloat">
+        <div class="whatsapp-pulse"></div>
+        <i class="ri-whatsapp-line"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+
