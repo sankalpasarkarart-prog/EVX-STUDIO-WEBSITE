@@ -51,6 +51,112 @@
 }
 
 /* ============================================================
+   1b. EVX CUSTOM LOADING SCREEN
+   ============================================================ */
+.evx-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg-primary, #0a0a0c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+  contain: layout style;
+}
+
+.evx-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.evx-loader-text {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+  position: relative;
+  user-select: none;
+  animation: evx-glow-pulse 2s ease-in-out infinite;
+  will-change: text-shadow, color;
+}
+
+/* Shimmer sweep overlay on the text */
+.evx-loader-text::after {
+  content: 'EVX';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.9) 25%,
+    rgba(139, 92, 246, 0.9) 50%,
+    rgba(14, 165, 233, 0.9) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: evx-shimmer-sweep 2.5s ease-in-out infinite;
+}
+
+/* Glow loading bar */
+.evx-loader-bar {
+  position: absolute;
+  bottom: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(100px, 25vw, 200px);
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.evx-loader-bar::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent, #3b82f6), var(--tertiary, #8b5cf6), transparent);
+  border-radius: 2px;
+  animation: evx-bar-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes evx-glow-pulse {
+  0%, 100% {
+    color: rgba(255, 255, 255, 0.1);
+    text-shadow:
+      0 0 20px rgba(59, 130, 246, 0.15),
+      0 0 60px rgba(59, 130, 246, 0.05);
+  }
+  50% {
+    color: rgba(255, 255, 255, 0.25);
+    text-shadow:
+      0 0 30px rgba(59, 130, 246, 0.4),
+      0 0 80px rgba(139, 92, 246, 0.2),
+      0 0 120px rgba(14, 165, 233, 0.1);
+  }
+}
+
+@keyframes evx-shimmer-sweep {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes evx-bar-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ============================================================
    2. RESET & BASE
    ============================================================ */
 *,
@@ -75,6 +181,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 img,
@@ -373,6 +482,7 @@ html {
   pointer-events: none;
   overflow: hidden;
   background: var(--bg-primary);
+  contain: strict;
 }
 
 .bg-orb {
@@ -380,6 +490,8 @@ html {
   border-radius: 50%;
   filter: blur(100px);
   will-change: transform;
+  backface-visibility: hidden;
+  contain: layout style;
 }
 
 .bg-orb-1 {
@@ -1927,14 +2039,16 @@ html {
    ============================================================ */
 .js-loaded .animate-in {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translate3d(0, 30px, 0);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
 .js-loaded .animate-in.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* ─ Stagger delays ─ */
@@ -2470,6 +2584,11 @@ html {
   .section-header {
     margin-bottom: 2.5rem;
   }
+
+  /* ─ Performance: reduce orb sizes on mobile ─ */
+  .bg-orb-1 { width: 400px; height: 400px; }
+  .bg-orb-2 { width: 350px; height: 350px; }
+  .bg-orb-3 { width: 450px; height: 450px; }
 }
 
 /* ============================================================
@@ -2495,6 +2614,14 @@ html {
   .animate-in {
     opacity: 1;
     transform: none;
+  }
+
+  .evx-loader {
+    transition-duration: 0.01ms !important;
+  }
+  .evx-loader-text,
+  .evx-loader-text::after {
+    animation: none !important;
   }
 }
 
@@ -2641,11 +2768,14 @@ html {
   background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
+  margin-left: -10px;
+  margin-top: -10px;
   box-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
-  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease, margin 0.2s ease;
   display: none;
   overflow: hidden;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .custom-cursor::after {
@@ -2668,6 +2798,8 @@ html {
 .custom-cursor.hovering {
   width: 40px;
   height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
   background: linear-gradient(135deg, rgba(0, 210, 255, 0.4) 0%, rgba(58, 123, 213, 0.4) 100%);
   backdrop-filter: blur(2px);
   box-shadow: 0 0 25px rgba(0, 210, 255, 0.8);
@@ -3011,6 +3143,8 @@ html {
   border-bottom-right-radius: 4px;
   box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
   transition: width 0.1s ease-out;
+  will-change: width;
+  contain: layout style;
 }
 
 
@@ -3367,4 +3501,24 @@ html {
     width: 24px; height: 24px; border-radius: 50%;
     display: flex; justify-content: center; align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* ─ Cart button mobile: move above WhatsApp button ─ */
+@media (max-width: 768px) {
+    .cart-floating-btn {
+        bottom: 5.5rem;
+        right: 1.5rem;
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 480px) {
+    .cart-floating-btn {
+        bottom: 5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+    }
 }

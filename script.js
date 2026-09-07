@@ -14,6 +14,84 @@ document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.add('js-loaded');
 
   // ──────────────────────────────────────────────────────────
+  // 0b. EVX CUSTOM LOADING SCREEN
+  //     Dismiss on page load + show on internal navigation.
+  // ──────────────────────────────────────────────────────────
+  const evxLoader = document.querySelector('.evx-loader');
+
+  function dismissLoader() {
+    if (evxLoader) {
+      evxLoader.classList.add('loaded');
+      // Remove from DOM after fade-out completes to free resources
+      evxLoader.addEventListener('transitionend', () => {
+        evxLoader.style.display = 'none';
+      }, { once: true });
+    }
+  }
+
+  function showLoader() {
+    if (evxLoader) {
+      evxLoader.style.display = '';
+      evxLoader.classList.remove('loaded');
+      // Force a reflow so the browser renders the visible state before navigating
+      void evxLoader.offsetHeight;
+    }
+  }
+
+  // Dismiss the loader once the page is fully loaded (images, fonts, etc.)
+  if (document.readyState === 'complete') {
+    dismissLoader();
+  } else {
+    window.addEventListener('load', dismissLoader, { once: true });
+  }
+
+  // Safety timeout: dismiss after 4s even if load event hasn't fired
+  setTimeout(dismissLoader, 4000);
+
+  // Intercept internal link clicks to show the loading screen
+  function isInternalNavigation(anchor) {
+    if (!anchor || !anchor.href) return false;
+    const href = anchor.getAttribute('href');
+    // Skip empty, pure hash, mailto, tel links
+    if (!href || href === '#' || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return false;
+    if (anchor.target === '_blank') return false;
+    if (anchor.hasAttribute('download')) return false;
+    // Check same origin
+    try {
+      const url = new URL(anchor.href, window.location.origin);
+      if (url.origin !== window.location.origin) return false;
+      // Skip if it's the same page with just a hash change (e.g. /#services while on /)
+      if (url.pathname === window.location.pathname && url.hash) return false;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  document.addEventListener('click', (e) => {
+    const anchor = e.target.closest('a');
+    if (!anchor) return;
+    if (!isInternalNavigation(anchor)) return;
+    // Don't intercept if modifier keys are held (open in new tab)
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+
+    e.preventDefault();
+    showLoader();
+    // Small delay so the loader is visible before navigation
+    setTimeout(() => {
+      window.location.href = anchor.href;
+    }, 120);
+  });
+
+  // Also show loader on browser back/forward for consistency
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) {
+      // Page was restored from bfcache
+      dismissLoader();
+    }
+  });
+
+  // ──────────────────────────────────────────────────────────
   // 1. MOUSE TRACKING SYSTEM FOR GLASS ELEMENTS
   //    Every .glass element responds to the cursor via
   //    --mouse-x / --mouse-y custom properties that drive
@@ -23,15 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const glassElements = document.querySelectorAll('.glass');
 
   if (glassElements.length) {
+    let glassRafPending = false;
+    let glassMouseX = 0, glassMouseY = 0;
+
     document.addEventListener('mousemove', (e) => {
-      glassElements.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        el.style.setProperty('--mouse-x', `${x}%`);
-        el.style.setProperty('--mouse-y', `${y}%`);
-      });
-    });
+      glassMouseX = e.clientX;
+      glassMouseY = e.clientY;
+      if (!glassRafPending) {
+        glassRafPending = true;
+        requestAnimationFrame(() => {
+          glassElements.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const x = ((glassMouseX - rect.left) / rect.width) * 100;
+            const y = ((glassMouseY - rect.top) / rect.height) * 100;
+            el.style.setProperty('--mouse-x', `${x}%`);
+            el.style.setProperty('--mouse-y', `${y}%`);
+          });
+          glassRafPending = false;
+        });
+      }
+    }, { passive: true });
   }
 
   // ──────────────────────────────────────────────────────────
@@ -224,15 +313,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const heroOrbs = document.querySelectorAll('.hero-orb');
 
   if (heroOrbs.length) {
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    let heroRafPending = false;
+    let heroMouseX = 0, heroMouseY = 0;
 
-      heroOrbs.forEach((orb, i) => {
-        const speed = (i + 1) * 15;
-        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-      });
-    });
+    document.addEventListener('mousemove', (e) => {
+      heroMouseX = e.clientX;
+      heroMouseY = e.clientY;
+      if (!heroRafPending) {
+        heroRafPending = true;
+        requestAnimationFrame(() => {
+          const x = (heroMouseX / window.innerWidth - 0.5) * 2;
+          const y = (heroMouseY / window.innerHeight - 0.5) * 2;
+          heroOrbs.forEach((orb, i) => {
+            const speed = (i + 1) * 15;
+            orb.style.transform = `translate3d(${x * speed}px, ${y * speed}px, 0)`;
+          });
+          heroRafPending = false;
+        });
+      }
+    }, { passive: true });
   }
 
   // ──────────────────────────────────────────────────────────
@@ -342,16 +441,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-        });
+        }, { passive: true });
         
-        // Smooth follow animation
+        // Smooth follow animation using translate3d for GPU compositing
         const animateCursor = () => {
-            // Adjust the 0.2 factor to change the speed/smoothness
             cursorX += (mouseX - cursorX) * 0.2;
             cursorY += (mouseY - cursorY) * 0.2;
             
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
+            cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
             
             requestAnimationFrame(animateCursor);
         };
