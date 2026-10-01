@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         message += "\n\nPlease let me know how to proceed with the payment and next steps.";
 
-        const whatsappUrl = `https://wa.me/+919239048684?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/+919332128501?text=${encodeURIComponent(message)}`;
         if (window.openWhatsAppWithTerms) { window.openWhatsAppWithTerms(whatsappUrl); } else { window.open(whatsappUrl, "_blank"); }
     });
 
