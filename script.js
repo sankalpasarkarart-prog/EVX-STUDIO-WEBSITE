@@ -196,9 +196,57 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.2, rootMargin: '0px 0px -30px 0px' }
     );
     chartObserver.observe(growthChart);
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // 3c. SERVICES GRID SEQUENTIAL STAGGER ANIMATION
+  //     Guarantees all service tiles animate strictly in
+  //     DOM order (0 -> 1 -> 2 -> ... -> 9) with zero race condition.
+  // ──────────────────────────────────────────────────────────
+
+  const servicesGrid = document.querySelector('.services-grid');
+  if (servicesGrid) {
+    const serviceCards = servicesGrid.querySelectorAll('.service-card');
+    let revealQueue = [];
+    let isProcessing = false;
+
+    function processQueue() {
+      if (revealQueue.length === 0) {
+        isProcessing = false;
+        return;
+      }
+      isProcessing = true;
+      // Sort strictly by DOM index so later tiles NEVER animate before earlier tiles
+      revealQueue.sort((a, b) => a.index - b.index);
+      const nextItem = revealQueue.shift();
+      nextItem.card.classList.add('visible');
+      setTimeout(processQueue, 75);
+    }
+
+    const serviceCardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            const index = parseInt(card.getAttribute('data-service-index'), 10);
+            serviceCardObserver.unobserve(card);
+            revealQueue.push({ card, index });
+            if (!isProcessing) {
+              processQueue();
+            }
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    serviceCards.forEach((card, i) => {
+      card.setAttribute('data-service-index', i);
+      serviceCardObserver.observe(card);
+    });
   }
 
   // ──────────────────────────────────────────────────────────
@@ -376,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     modal.innerHTML = `
         <h3>Notice</h3>
-        <p>If you take our service, you agree to our <a href="/terms.html" style="color: var(--accent); text-decoration: underline;">Terms and Conditions</a>.</p>
+        <p>If you take our service, you agree to our <a href="/terms" target="_blank" style="color: var(--accent); text-decoration: underline;">Terms and Conditions</a> and <a href="/privacy" target="_blank" style="color: var(--accent); text-decoration: underline;">Privacy Policy</a>.</p>
         <div class="terms-modal-actions">
             <button class="terms-modal-btn terms-modal-btn-cancel">Cancel</button>
             <button class="terms-modal-btn terms-modal-btn-agree">OK, Continue</button>
